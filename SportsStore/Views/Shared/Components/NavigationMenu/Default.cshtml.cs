@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SportsStore.Pages
+namespace SportsStore.Views.Shared.Components.NavigationMenu
 {
-    public class _CartLayoutModel : PageModel
+    public class DefaultModel : PageModel
     {
         public void OnGet()
         {
