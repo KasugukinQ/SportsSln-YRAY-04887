@@ -8,41 +8,41 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace SportsStore.Infrastructure
 {
-	[HtmlTargetElement("div", Attributes = "page-model")]
+    [HtmlTargetElement("div", Attributes = "page-model")]
 
-	public class PageLinkTagHelper : TagHelper
-	{
-		private IUrlHelperFactory urlHelperFactory;
+    public class PageLinkTagHelper : TagHelper
+    {
+        private IUrlHelperFactory urlHelperFactory;
 
-		public PageLinkTagHelper(IUrlHelperFactory helperFactory)
-		{
-			urlHelperFactory = helperFactory;
-		}
+        public PageLinkTagHelper(IUrlHelperFactory helperFactory)
+        {
+            urlHelperFactory = helperFactory;
+        }
 
-		[ViewContext]
-		[HtmlAttributeNotBound]
-		public ViewContext? ViewContext { get; set; }
+        [ViewContext]
+        [HtmlAttributeNotBound]
+        public ViewContext? ViewContext { get; set; }
 
-		public PagingInfo? PageModel { get; set; }
+        public PagingInfo? PageModel { get; set; }
 
-		public string? PageAction { get; set; }
+        public string? PageAction { get; set; }
 
-		public override void Process(TagHelperContext context, TagHelperOutput output)
-		{
-			if (ViewContext != null && PageModel != null)
-			{
-				IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
-				TagBuilder result = new TagBuilder("div");
-				for (int i = 1; i <= PageModel.TotalPages; i++)
-				{
-					TagBuilder tag = new TagBuilder("a");
-					tag.Attributes["href"] = urlHelper.Action(PageAction,
-						new { productPage = i });
-					tag.InnerHtml.Append(i.ToString());
-					result.InnerHtml.AppendHtml(tag);
-				}
-				output.Content.AppendHtml(result.InnerHtml);
-			}
-		}
-	}
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            if (ViewContext != null && PageModel != null)
+            {
+                IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
+                TagBuilder result = new TagBuilder("div");
+                for (int i = 1; i <= PageModel.TotalPages; i++)
+                {
+                    TagBuilder tag = new TagBuilder("a");
+                    tag.Attributes["href"] = urlHelper.Action(PageAction,
+                        new { productPage = i });
+                    tag.InnerHtml.Append(i.ToString());
+                    result.InnerHtml.AppendHtml(tag);
+                }
+                output.Content.AppendHtml(result.InnerHtml);
+            }
+        }
+    }
 }

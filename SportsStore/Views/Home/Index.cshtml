@@ -1,17 +1,50 @@
-﻿@model ProductsListViewModel
+﻿@model SportsStore.Models.ViewModels.ProductsListViewModel
 
-<h1>Welcome to Sports Store</h1>
-<br>
+<h1 class="text-center my-4">Welcome to Sports Store</h1>
 
-@foreach (var p in Model.Products ?? Enumerable.Empty<Product>())
-{
-	<div>
-		<h3>Name: @p.Name</h3>
-		<h4>Description: @p.Description</h4>
-		<h4>Price: @p.Price.ToString("c")</h4>
-	</div>
-}
-
-<div page-model="@Model.PagingInfo" page-action="Index">
-
+<div class="row">
+    @foreach (var p in Model.Products)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Name</h5>
+                    <p class="card-text">@p.Description</p>
+                    <p class="card-text font-weight-bold">@p.Price.ToString("c")</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        @if (Model.PagingInfo.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { productPage = Model.PagingInfo.CurrentPage - 1, category = Model.CurrentCategory })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+        {
+            <li class="page-item @(Model.PagingInfo.CurrentPage == i ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { productPage = i, category = Model.CurrentCategory })">@i</a>
+            </li>
+        }
+
+        @if (Model.PagingInfo.CurrentPage < Model.PagingInfo.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { productPage = Model.PagingInfo.CurrentPage + 1, category = Model.CurrentCategory })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

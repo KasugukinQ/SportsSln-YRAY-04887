@@ -1,13 +1,14 @@
-﻿using SportsStore.Models;
-
-public class EFStoreRepository : IStoreRepository
+﻿
+namespace SportsStore.Models
 {
-	private StoreDBContext context;
+    public class EFStoreRepository : IStoreRepository
+    {
+        private StoreDBContext context;
 
-	public EFStoreRepository(StoreDBContext ctx)
-	{
-		context = ctx;
-	}
-
-	public IQueryable<Product> Products => context.Products;
+        public EFStoreRepository(StoreDBContext context)
+        {
+            this.context = context;
+        }
+        public IQueryable<Product> Products => context.Products;
+    }
 }
