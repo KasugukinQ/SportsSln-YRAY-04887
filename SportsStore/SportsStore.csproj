@@ -144,10 +144,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="global.json" />
     <None Include="libman.json" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css" />
